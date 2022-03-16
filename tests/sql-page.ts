@@ -21,6 +21,11 @@ export class SqlPage {
     );
   }
 
+  private getRowLocator(index: number) {
+    // NOTE: если бы вынести строку-заголовок из tbody в thead не пришлось бы сдвигать индексы
+    return this._resTable.locator(`tr:nth-child(${index + 1})`);
+  }
+
   async start() {
     await this.page.goto("/sql/trysql.asp?filename=trysql_select_all");
   }
@@ -50,8 +55,7 @@ export class SqlPage {
   }
 
   async expectRowContent(options: { index: number; name: string; address: string }) {
-    // NOTE: если бы вынести строку-заголовок из tbody в thead не пришлось бы сдвигать индексы
-    const row = this.page.locator(`.ws-table-all > tbody > tr:nth-child(${options.index + 1})`);
+    const row = this.getRowLocator(options.index);
 
     await expect(row.locator("td:nth-child(3)")).toHaveText(options.name);
     await expect(row.locator("td:nth-child(4)")).toHaveText(options.address);
@@ -59,8 +63,7 @@ export class SqlPage {
   }
 
   async expectFullRowContent(index: number, expectedText: string) {
-    // NOTE: если бы вынести строку-заголовок из tbody в thead не пришлось бы сдвигать индексы
-    const row = this.page.locator(`.ws-table-all > tbody > tr:nth-child(${index + 1})`);
+    const row = this.getRowLocator(index);
 
     await expect(row).toHaveText(expectedText);
   }
