@@ -14,9 +14,11 @@
 
 usual run: `npx playwright test`
 
-for update snapshots: `npx playwright test -u`
+update snapshots: `npx playwright test -u`
 
-for headfull run: `npx playwright test --debug`
+headfull run: `npx playwright test --debug`
+
+open html-report: `npx playwright show-report`
 
 ## Documentation
 
