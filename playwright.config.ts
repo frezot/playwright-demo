@@ -7,13 +7,13 @@ import { devices } from "@playwright/test";
 const config: PlaywrightTestConfig = {
   testDir: "./tests",
   /* Maximum time one test can run for. */
-  timeout: 30 * 1000,
+  timeout: 30_000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 5000,
+    timeout: 5_000,
   },
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
@@ -27,7 +27,7 @@ const config: PlaywrightTestConfig = {
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Maximum time each action such as `click()` can take. */
-    actionTimeout: 5000,
+    actionTimeout: 5_000,
 
     baseURL: "https://www.w3schools.com",
 
@@ -45,6 +45,8 @@ const config: PlaywrightTestConfig = {
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
   outputDir: "test-results/",
+
+  reportSlowTests: { max: 5, threshold: 30_000 },
 };
 
 export default config;
